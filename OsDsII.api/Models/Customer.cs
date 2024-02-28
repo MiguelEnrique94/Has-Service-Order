@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace OsDsII.api.Models
 {
     public class Customer
@@ -6,6 +8,7 @@ namespace OsDsII.api.Models
 
         public string Name { get; set; } = null!;
 
+        [EmailAddress]
         public string Email { get; set; } = null!;
 
         public string Phone { get; set; }
