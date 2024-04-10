@@ -18,6 +18,8 @@ namespace OsDsII.api.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCommentsAsync(int serviceOrderId)
         {
             ServiceOrder serviceOrderWithComments = await _context.ServiceOrders
@@ -29,6 +31,9 @@ namespace OsDsII.api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Customer))]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AddComment(int serviceOrderId, Comment comment)
         {
             try

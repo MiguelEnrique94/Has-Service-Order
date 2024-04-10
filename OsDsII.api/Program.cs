@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OsDsII.api.Data;
+using OsDsII.api.Repository;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -7,14 +9,13 @@ builder.Logging.AddConsole();
 
 builder.Services.AddDbContext<DataContext>(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("DefaultMySQLConnection");
-    var serverVersion = new MySqlServerVersion(new Version(8, 0, 33));
-    options.UseMySql(connectionString, serverVersion);
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
 });
 // Add services to the container.
 
 builder.Services.AddCors();
 
+builder.Services.AddScoped<IServiceOrderRepository, ServiceOrderRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
